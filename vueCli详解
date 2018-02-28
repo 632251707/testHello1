@@ -1,0 +1,121 @@
+vue-cli安装
+ 
+
+1.先安装node，检查node版本，node -v,安装vue-cli脚手架，node的版本必须在v4.0以上
+
+2.全局安装vue-cli,npm install -g vue-cli，检vue是否安装成功,vue,用vue list可以查看vue有哪些可以安装的模板
+
+z
+
+ 
+
+3.安装一个webpack的模板，vue init webpack sell
+
+ 如果一直是downloading状态，可以尝试这个。
+
+全局安装 vue-cli：npm install --global vue-cli，然后创建一个基于 webpack 模板的新项目：vue init webpack sell就ok了
+
+
+
+4.安装成功。以下就是vue+webpack的模板
+
+
+
+ 
+
+5.执行npm install，安装依赖模块，如果速度很慢，可以以下方法解决
+
+（1）使用阿里巴巴在国内的镜像服务器，命令如下：
+
+npm install -gd express --registry=http://registry.npm.taobao.org
+（2）只需要使用–registry参数指定镜像服务器地址，为了避免每次安装都需要--registry参数，可以使用如下命令进行永久设置：（推荐）
+npm config set registry http://registry.npm.taobao.org
+再次list一下,会发现已经在了，重新使用npm install命令
+
+ 
+
+ 
+6.执行npm run dev运行模板，建议更改下端口号，config----index.js,里面的port端口改为和其他端口不一样就可以了。
+
+如果出现执行npm install，npm run dev
+
+
+
+执行成功的界面
+
+
+
+ 
+
+ *************************************项目文件的解读***************************************
+
+bulid和config是 webpck配置相关
+
+node_modules文件夹：是npm install安装的依赖代码库
+
+src文件夹：存放源码
+
+static：存放第三方静态资源的，static里面的.gitkeep，如果为空，也可以提交到gitHub上面，正常情况下，是不可以提交的。
+
+.babelrc:把es6文件编译成es5
+
+复制代码
+.babelrc文件
+
+{
+  "presets": ["es2015", "stage-2"],//表示预设，表示babelrc转换预先需要安装的插件
+  "plugins": ["transform-runtime"],//把es6的方法做转换
+  "comments": false  //false表示转换后代码不生成注释
+}
+复制代码
+.editorconfig：编辑器的配置
+
+复制代码
+.editorconfig
+
+charset = utf-8  //编码
+indent_style = space //缩进风格,基于空格做缩进
+indent_size = 2   //缩进大小是2格
+end_of_line = lf   //换行符的风格
+insert_final_newline = true  //当你创建一个文件，会自动在文件末尾插入新行
+trim_trailing_whitespace = true  //自动移除行尾多余空格
+复制代码
+.eslintignore 忽略语法检查的目录文件
+
+就是忽略对build/*.js和config/*.js的语法检查
+
+.eslintrc.js  eslint的配置文件
+
+package.json对项目的描述
+
+复制代码
+{
+  "name": "sell",
+  "version": "1.0.0",
+  "description": "sell app",
+  "author": "",
+  "private": true,
+  "scripts": {  /*表示可以执行一些命令，例如：npm run dev会执行node build/dev-server.js，npm run build会执行node build/build.js，因此可以通过scripts配置脚本*/
+    "dev": "node build/dev-server.js",
+    "build": "node build/build.js",
+    "lint": "eslint --ext .js,.vue src"
+  },
+  "dependencies": {  /*项目的依赖*/
+    "vue": "^2.2.2",
+    "vue-router": "^2.2.0"
+  },
+  "devDependencies": {  //编译需要的依赖
+   .......................
+  },
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
+复制代码
+index.html是项目的入口，入口js是main.js
